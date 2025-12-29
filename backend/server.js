@@ -22,9 +22,11 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 // Test route
 app.get('/', (req, res) => {
@@ -86,6 +88,36 @@ app.get('/test-get-users', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Test route to create admin user
+app.get('/test-create-admin', async (req, res) => {
+  try {
+    // Create an admin user
+    const adminUser = await User.create({
+      fullName: 'Admin User',
+      email: 'admin@example.com',
+      password: 'admin123',
+      role: 'admin'
+    });
+
+    res.status(201).json({
+      success: true,
+      message: 'Admin user created successfully!',
+      user: {
+        id: adminUser._id,
+        fullName: adminUser.fullName,
+        email: adminUser.email,
+        role: adminUser.role,
+        status: adminUser.status
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
       success: false,
       error: error.message
     });
