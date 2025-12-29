@@ -6,6 +6,12 @@ const dotenv = require('dotenv');
 // Load environment variables from .env file
 dotenv.config();
 
+// Import database connection
+const connectDB = require('./config/database');
+
+// Connect to database
+connectDB();
+
 // Create Express application
 const app = express();
 
