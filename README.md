@@ -6,13 +6,23 @@ A full-stack web application for managing user accounts with role-based authenti
 
 This User Management System provides a complete authentication and authorization solution with distinct user and admin roles. Users can manage their profiles and passwords, while admins have full control over user lifecycle management including activation and deactivation of accounts.
 
-**Live Demo:** [Coming Soon]
+## 🌐 Live Deployment
+
+**Frontend (Live Application):** [https://user-management-frontend-five-taupe.vercel.app/](https://user-management-frontend-five-taupe.vercel.app/)
+
+**Backend API:** [https://user-management-system-iip6.onrender.com/](https://user-management-system-iip6.onrender.com/)
 
 **GitHub Repository:** [https://github.com/badalOraon-06/user-management-system](https://github.com/badalOraon-06/user-management-system)
+
+**Test Admin Account:**
+
+- Email: `admin@example.com`
+- Password: `admin123`
 
 ## 🚀 Tech Stack
 
 ### Backend
+
 - **Framework:** Node.js + Express.js
 - **Database:** MongoDB (Cloud-hosted on MongoDB Atlas)
 - **Authentication:** JWT (JSON Web Tokens)
@@ -21,6 +31,7 @@ This User Management System provides a complete authentication and authorization
 - **Deployment:** Render/Railway
 
 ### Frontend
+
 - **Framework:** React 19 with Vite
 - **Routing:** React Router DOM v7
 - **HTTP Client:** Axios
@@ -78,6 +89,7 @@ user-management-system/
 ## ✨ Features
 
 ### Authentication
+
 - ✅ User signup with email validation
 - ✅ Password strength validation (minimum 6 characters)
 - ✅ Secure password hashing with bcryptjs
@@ -87,12 +99,14 @@ user-management-system/
 - ✅ Logout functionality
 
 ### User Management - User Features
+
 - ✅ View own profile information
 - ✅ Update full name and email
 - ✅ Change password (with current password verification)
 - ✅ Protected routes for authenticated users
 
 ### User Management - Admin Features
+
 - ✅ View all users with pagination (10 users per page)
 - ✅ Activate user accounts
 - ✅ Deactivate user accounts
@@ -102,6 +116,7 @@ user-management-system/
 - ✅ Admin-only route protection
 
 ### Security Features
+
 - ✅ Password hashing with bcryptjs (salt rounds: 10)
 - ✅ JWT token verification middleware
 - ✅ Role-based access control (admin/user)
@@ -113,6 +128,7 @@ user-management-system/
 - ✅ CORS configuration
 
 ### UI/UX Features
+
 - ✅ Responsive design (desktop & mobile)
 - ✅ Loading states during API calls
 - ✅ Success/error message notifications
@@ -124,6 +140,7 @@ user-management-system/
 ## 🛠️ Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 - MongoDB Atlas account (or local MongoDB)
@@ -132,17 +149,20 @@ user-management-system/
 ### Backend Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/badalOraon-06/user-management-system.git
    cd user-management-system/backend
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Create .env file**
+
    ```bash
    # Create .env file in backend folder
    touch .env
@@ -151,9 +171,11 @@ user-management-system/
 4. **Configure environment variables** (see Environment Variables section below)
 
 5. **Start the development server**
+
    ```bash
    npm run dev
    ```
+
    Backend will run on `http://localhost:5000`
 
 6. **Run tests**
@@ -164,11 +186,13 @@ user-management-system/
 ### Frontend Setup
 
 1. **Navigate to frontend folder**
+
    ```bash
    cd ../frontend
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -182,6 +206,7 @@ user-management-system/
 ### Create Admin Account
 
 Once both servers are running, create an admin account:
+
 1. Visit: `http://localhost:5000/reactivate-admin`
 2. Login with: `admin@example.com` / `admin123`
 
@@ -211,14 +236,16 @@ The frontend uses `http://localhost:5000/api` as the default backend URL. To cha
 ## 📡 API Documentation
 
 ### Base URL
+
 ```
 Local: http://localhost:5000/api
-Production: [Your deployed backend URL]
+Production: https://user-management-system-iip6.onrender.com/api
 ```
 
 ### Authentication Endpoints
 
 #### 1. User Signup
+
 ```http
 POST /api/auth/signup
 Content-Type: application/json
@@ -244,6 +271,7 @@ Response (201):
 ```
 
 #### 2. User Login
+
 ```http
 POST /api/auth/login
 Content-Type: application/json
@@ -269,6 +297,7 @@ Response (200):
 ```
 
 #### 3. Get Current User
+
 ```http
 GET /api/auth/me
 Authorization: Bearer {token}
@@ -287,6 +316,7 @@ Response (200):
 ```
 
 #### 4. Logout
+
 ```http
 POST /api/auth/logout
 
@@ -300,6 +330,7 @@ Response (200):
 ### User Management Endpoints
 
 #### 5. Get User Profile
+
 ```http
 GET /api/users/profile
 Authorization: Bearer {token}
@@ -318,6 +349,7 @@ Response (200):
 ```
 
 #### 6. Update Profile
+
 ```http
 PUT /api/users/profile
 Authorization: Bearer {token}
@@ -337,6 +369,7 @@ Response (200):
 ```
 
 #### 7. Change Password
+
 ```http
 PUT /api/users/change-password
 Authorization: Bearer {token}
@@ -357,6 +390,7 @@ Response (200):
 ### Admin Endpoints
 
 #### 8. Get All Users (Admin Only)
+
 ```http
 GET /api/users?page=1&limit=10
 Authorization: Bearer {admin_token}
@@ -383,6 +417,7 @@ Response (200):
 ```
 
 #### 9. Activate User (Admin Only)
+
 ```http
 PATCH /api/users/:id/activate
 Authorization: Bearer {admin_token}
@@ -396,6 +431,7 @@ Response (200):
 ```
 
 #### 10. Deactivate User (Admin Only)
+
 ```http
 PATCH /api/users/:id/deactivate
 Authorization: Bearer {admin_token}
@@ -411,6 +447,7 @@ Response (200):
 ### Error Responses
 
 All endpoints return consistent error responses:
+
 ```json
 {
   "success": false,
@@ -419,6 +456,7 @@ All endpoints return consistent error responses:
 ```
 
 Common HTTP status codes:
+
 - `200` - Success
 - `201` - Created
 - `400` - Bad Request (validation error)
@@ -432,12 +470,14 @@ Common HTTP status codes:
 The backend includes comprehensive unit tests using Jest and Supertest.
 
 ### Running Tests
+
 ```bash
 cd backend
 npm test
 ```
 
 ### Test Coverage
+
 - **21 passing tests** covering:
   - User signup (3 tests)
   - User login (3 tests)
@@ -449,6 +489,7 @@ npm test
   - Password change functionality (2 tests)
 
 ### Test Files
+
 - `backend/__tests__/auth.test.js` - Authentication tests
 - `backend/__tests__/user.test.js` - User management tests
 
@@ -492,6 +533,7 @@ npm test
 [Video Link - Coming Soon]
 
 A 3-5 minute screen-recorded walkthrough demonstrating:
+
 - User signup and login
 - Role-based access control
 - User profile management
@@ -503,6 +545,7 @@ A 3-5 minute screen-recorded walkthrough demonstrating:
 ## 🔍 Key Implementation Details
 
 ### Database Schema
+
 ```javascript
 User {
   fullName: String (required)
@@ -517,6 +560,7 @@ User {
 ```
 
 ### Middleware Stack
+
 1. CORS configuration for frontend communication
 2. Express JSON parser
 3. JWT verification middleware
@@ -524,6 +568,7 @@ User {
 5. Active account status verification
 
 ### Security Measures
+
 - Passwords hashed with bcryptjs (10 salt rounds)
 - JWT tokens with 7-day expiration
 - Protected routes require valid JWT
@@ -535,12 +580,15 @@ User {
 ## 📝 Development Notes
 
 ### Commit History
+
 This project follows proper git practices with:
+
 - Incremental commits throughout development
 - Descriptive commit messages
 - Separate commits for features, fixes, and tests
 
 ### Code Quality
+
 - Modular architecture with separation of concerns
 - MVC pattern in backend
 - Component-based architecture in frontend
@@ -551,6 +599,7 @@ This project follows proper git practices with:
 ## 🐛 Known Issues & Future Enhancements
 
 ### Future Enhancements
+
 - Email verification on signup
 - Password reset via email
 - User profile pictures
@@ -579,6 +628,7 @@ This project is created for the Purple Merit Backend Developer Internship Assess
 ---
 
 **Assessment Details:**
+
 - Position: Backend Developer Intern
 - Company: Purple Merit Technologies
 - Start Time: 29th December 2025, 11:00 AM (IST)
