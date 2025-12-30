@@ -23,10 +23,13 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const response = await userAPI.getAllUsers(page, 10);
-      setUsers(response.data.users);
-      setTotalPages(response.data.pages);
+      console.log('Fetched users:', response.data); // Debug log
+      setUsers(response.data.users || []);
+      setTotalPages(response.data.pages || 1);
     } catch (error) {
+      console.error('Error fetching users:', error); // Debug log
       setMessage({ type: 'error', text: 'Failed to fetch users' });
+      setUsers([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
@@ -36,8 +39,9 @@ const AdminDashboard = () => {
     try {
       await userAPI.activateUser(userId);
       setMessage({ type: 'success', text: 'User activated successfully!' });
-      fetchUsers(); // Refresh the list
+      await fetchUsers(); // Refresh the list
     } catch (error) {
+      console.error('Error activating user:', error); // Debug log
       setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to activate user' });
     }
     setConfirmDialog({ show: false, action: null, userId: null, userName: '' });
@@ -45,16 +49,19 @@ const AdminDashboard = () => {
 
   const handleDeactivate = async (userId) => {
     try {
+      console.log('Deactivating user:', userId); // Debug log
       await userAPI.deactivateUser(userId);
       setMessage({ type: 'success', text: 'User deactivated successfully!' });
-      fetchUsers(); // Refresh the list
+      await fetchUsers(); // Refresh the list
     } catch (error) {
+      console.error('Error deactivating user:', error); // Debug log
       setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to deactivate user' });
     }
     setConfirmDialog({ show: false, action: null, userId: null, userName: '' });
   };
 
   const showConfirmDialog = (action, userId, userName) => {
+    console.log('showConfirmDialog called:', action, userId, userName);
     setConfirmDialog({ show: true, action, userId, userName });
   };
 
@@ -153,11 +160,12 @@ const AdminDashboard = () => {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                          {u.status === 'active' ? (
+                          {(u._id === user?.id || u._id === user?._id || u.email === user?.email) ? (
+                            <span className="text-gray-400 text-sm">You</span>
+                          ) : u.status === 'active' ? (
                             <button
                               onClick={() => showConfirmDialog('deactivate', u._id, u.fullName)}
                               className="text-red-600 hover:text-red-900"
-                              disabled={u._id === user?.id}
                             >
                               Deactivate
                             </button>
@@ -227,38 +235,42 @@ const AdminDashboard = () => {
 
       {/* Confirmation Dialog */}
       {confirmDialog.show && (
-        <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      Confirm {confirmDialog.action}
-                    </h3>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Are you sure you want to {confirmDialog.action} <strong>{confirmDialog.userName}</strong>?
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  onClick={() => confirmDialog.action === 'activate' ? handleActivate(confirmDialog.userId) : handleDeactivate(confirmDialog.userId)}
-                  className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm ${confirmDialog.action === 'activate' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}`}
-                >
-                  Confirm
-                </button>
-                <button
-                  onClick={() => setConfirmDialog({ show: false, action: null, userId: null, userName: '' })}
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Cancel
-                </button>
-              </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50"
+            onClick={() => setConfirmDialog({ show: false, action: null, userId: null, userName: '' })}
+          ></div>
+          
+          {/* Dialog Box */}
+          <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6 z-50">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">
+              Confirm {confirmDialog.action}
+            </h3>
+            <p className="text-sm text-gray-500 mb-6">
+              Are you sure you want to {confirmDialog.action} <strong>{confirmDialog.userName}</strong>?
+            </p>
+            
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setConfirmDialog({ show: false, action: null, userId: null, userName: '' })}
+                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  console.log('Confirm clicked!');
+                  confirmDialog.action === 'activate' ? handleActivate(confirmDialog.userId) : handleDeactivate(confirmDialog.userId);
+                }}
+                className={`px-4 py-2 rounded-md text-white ${
+                  confirmDialog.action === 'activate' 
+                    ? 'bg-green-600 hover:bg-green-700' 
+                    : 'bg-red-600 hover:bg-red-700'
+                }`}
+              >
+                Confirm
+              </button>
             </div>
           </div>
         </div>
