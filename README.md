@@ -5,12 +5,14 @@ Full-stack user management system with JWT authentication and role-based access 
 ## 🚀 Tech Stack
 
 ### Backend
+
 - Node.js + Express.js
 - MongoDB + Mongoose
 - JWT Authentication
 - bcryptjs for password hashing
 
 ### Frontend
+
 - React with Hooks
 - React Router
 - Axios
@@ -28,6 +30,7 @@ Full-stack user management system with JWT authentication and role-based access 
 ## 🛠️ Setup Instructions
 
 ### Backend Setup
+
 ```bash
 cd backend
 npm install
@@ -36,6 +39,7 @@ npm run dev
 ```
 
 ### Frontend Setup
+
 ```bash
 cd frontend
 npm install
@@ -43,6 +47,7 @@ npm run dev
 ```
 
 ## 📝 Features
+
 - User authentication (signup/login)
 - Role-based access control (Admin/User)
 - User profile management
@@ -51,6 +56,7 @@ npm run dev
 - JWT token-based authentication
 
 ## 🔗 Links
+
 - Frontend: [Coming soon]
 - Backend API: [Coming soon]
 - API Documentation: [Coming soon]
