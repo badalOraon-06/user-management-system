@@ -4,6 +4,7 @@ PROJECT_PLAN.md
 
 # Environment variables
 .env
+backend/.env
 
 # Dependencies
 node_modules/
