@@ -174,7 +174,7 @@ This project follows proper git practices with:
 **Badal Oraon**
 
 - GitHub: [@badalOraon-06](https://github.com/badalOraon-06)
-- Email: career@purplemerit.com
+- Email: badaln2004@gmail.com
 
 ## 📄 License
 
