@@ -16,7 +16,7 @@ Full-stack user and admin management app built for the Purple Merit Backend Deve
 - Admins: list users with pagination, activate/deactivate with confirmations
 - Users: view/update profile, change password
 - Secure patterns: hashed passwords, auth middleware, CORS allowlist, env-based secrets
-- Responsive UI with custom CSS design system (Tailwind removed)
+- Responsive UI with custom CSS design system
 
 ## 🚀 Tech Stack
 
