@@ -51,29 +51,20 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Join the User Management System
-          </p>
-        </div>
+    <div className="page auth-page">
+      <div className="auth-card">
+        <header>
+          <div className="eyebrow">Create account</div>
+          <h2 className="title">Join the UMS</h2>
+          <p className="subtitle">Set up your credentials to continue</p>
+        </header>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="rounded-md bg-red-50 p-4">
-              <p className="text-sm text-red-800">{error}</p>
-            </div>
-          )}
+        <form className="form" onSubmit={handleSubmit}>
+          {error && <div className="alert error">{error}</div>}
 
-          <div className="rounded-md shadow-sm space-y-4">
-            <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
-              </label>
+          <div className="form-grid">
+            <div className="field">
+              <label htmlFor="fullName" className="label">Full Name</label>
               <input
                 id="fullName"
                 name="fullName"
@@ -81,15 +72,13 @@ const Signup = () => {
                 required
                 value={formData.fullName}
                 onChange={handleChange}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="input"
                 placeholder="John Doe"
               />
             </div>
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email address
-              </label>
+            <div className="field">
+              <label htmlFor="email" className="label">Email address</label>
               <input
                 id="email"
                 name="email"
@@ -97,15 +86,13 @@ const Signup = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="input"
                 placeholder="john@example.com"
               />
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
+            <div className="field">
+              <label htmlFor="password" className="label">Password</label>
               <input
                 id="password"
                 name="password"
@@ -113,15 +100,13 @@ const Signup = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="input"
                 placeholder="Min 6 characters"
               />
             </div>
 
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                Confirm Password
-              </label>
+            <div className="field">
+              <label htmlFor="confirmPassword" className="label">Confirm Password</label>
               <input
                 id="confirmPassword"
                 name="confirmPassword"
@@ -129,27 +114,20 @@ const Signup = () => {
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                placeholder="Confirm password"
+                className="input"
+                placeholder="Repeat password"
               />
             </div>
           </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {loading ? 'Creating account...' : 'Sign up'}
-            </button>
-          </div>
+          <button type="submit" disabled={loading} className="btn primary" style={{ width: '100%' }}>
+            {loading ? 'Creating account…' : 'Sign up'}
+          </button>
 
-          <div className="text-center">
-            <Link to="/login" className="text-sm text-indigo-600 hover:text-indigo-500">
-              Already have an account? Sign in
-            </Link>
-          </div>
+          <p className="helper">
+            Already have an account?{' '}
+            <Link to="/login" className="link">Sign in</Link>
+          </p>
         </form>
       </div>
     </div>

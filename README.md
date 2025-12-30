@@ -34,7 +34,7 @@ Full-stack user and admin management app built for the Purple Merit Backend Deve
 - Router: React Router DOM v7
 - HTTP: Axios
 - State: React Context
-- Styling: Custom CSS (no Tailwind)
+- Styling: Custom CSS
 - Deployment: Vercel
 
 **Tooling**
